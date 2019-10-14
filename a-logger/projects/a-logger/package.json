@@ -1,0 +1,11 @@
+{
+  "name": "a-logger",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/common": "^8.2.9",
+    "@angular/core": "^8.2.9"
+  },
+  "publishConfig": {
+    "registry": "http://localhost:8000/repository/npm-osiris/"
+  }
+}

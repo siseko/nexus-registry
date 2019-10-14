@@ -1,0 +1,164 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "a-logger": {
+      "projectType": "library",
+      "root": "projects/a-logger",
+      "sourceRoot": "projects/a-logger/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/a-logger/tsconfig.lib.json",
+            "project": "projects/a-logger/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/a-logger/src/test.ts",
+            "tsConfig": "projects/a-logger/tsconfig.spec.json",
+            "karmaConfig": "projects/a-logger/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/a-logger/tsconfig.lib.json",
+              "projects/a-logger/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "a-logger-showcase": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/a-logger-showcase",
+      "sourceRoot": "projects/a-logger-showcase/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/a-logger-showcase",
+            "index": "projects/a-logger-showcase/src/index.html",
+            "main": "projects/a-logger-showcase/src/main.ts",
+            "polyfills": "projects/a-logger-showcase/src/polyfills.ts",
+            "tsConfig": "projects/a-logger-showcase/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/a-logger-showcase/src/favicon.ico",
+              "projects/a-logger-showcase/src/assets"
+            ],
+            "styles": [
+              "projects/a-logger-showcase/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/a-logger-showcase/src/environments/environment.ts",
+                  "with": "projects/a-logger-showcase/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "a-logger-showcase:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "a-logger-showcase:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "a-logger-showcase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/a-logger-showcase/src/test.ts",
+            "polyfills": "projects/a-logger-showcase/src/polyfills.ts",
+            "tsConfig": "projects/a-logger-showcase/tsconfig.spec.json",
+            "karmaConfig": "projects/a-logger-showcase/karma.conf.js",
+            "assets": [
+              "projects/a-logger-showcase/src/favicon.ico",
+              "projects/a-logger-showcase/src/assets"
+            ],
+            "styles": [
+              "projects/a-logger-showcase/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/a-logger-showcase/tsconfig.app.json",
+              "projects/a-logger-showcase/tsconfig.spec.json",
+              "projects/a-logger-showcase/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/a-logger-showcase/e2e/protractor.conf.js",
+            "devServerTarget": "a-logger-showcase:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "a-logger-showcase:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "a-logger"
+}
